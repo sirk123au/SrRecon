@@ -1,6 +1,6 @@
 # SrRecon
 
-![](https://img.shields.io/badge/SrRecon-1.2-blue.svg)
+![](https://img.shields.io/badge/SrRecon-1.3-blue.svg)
 ![](https://img.shields.io/pypi/pyversions/requests.svg?label=python)
 ![](https://img.shields.io/badge/update-19/05/2019-blue.svg)
 ![](https://img.shields.io/badge/last_update-19/05/2019-blue.svg)
@@ -75,4 +75,6 @@
     [19/05/2019] Removido Bug do SubDomain Finder.
     [19/05/2019] Otimizado SubDomain Finder.
     [19/05/2019] Detectando Redirecionamento.
+    [19/05/2019] Update 1.3 BETA.
+    [19/05/2019] Adicionado novo banner, criado por Gabriel Paiva.
 ```
