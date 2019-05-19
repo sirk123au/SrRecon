@@ -3,7 +3,7 @@
 
 ![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/pandao/editor.md.svg) ![](https://img.shields.io/github/followers/espadrine.svg?label=Follow) ![](https://img.shields.io/pypi/pyversions/requests.svg?label=python)
 
-- SrRecon é uma ferramenta para efetuar um reconhecimento basico de um -site, analizando as portas, pagina admin, e subdominios do site, SrRecon vem com um podereço detector, que pode ser alterado por qual quer um.
+- SrRecon é uma ferramenta para efetuar um reconhecimento basico de um -site, analizando as portas, pagina admin, e subdominios do site, SrRecon vem com um podereço detector, que pode ser custumizado por qual quer programador.
 
 #Imagem
 
@@ -26,11 +26,13 @@
 - SubDominio finder
 
 
+
 #Instalação
 
 - Baixe diretamente do github com:
 - git clone https://github.com/Srblu3/SrRecon.git
 - ou click aqui: [SrRecon](https://github.com/Srblu3/SrRecon/archive/master.zip "SrRecon")
+
 
 
 #Uso
@@ -47,6 +49,7 @@
 
 - Bibliotecas [Socket](ttps://pypi.org/project/sockets/ "Socket"), Sys, OS, [Requests](https://pypi.org/project/requests/ "Requests"), [OpenSSL](https://pypi.org/project/pyOpenSSL/ "OpenSSL"), [SSL](https://pypi.org/project/ssl/ "SSL"), Signal.
 - Python versão 2.x | 3.x.
+
 
 
 #ChatLogs
