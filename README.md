@@ -70,4 +70,5 @@
     [19/05/2019] Adicionado mais SubDominios para serem detectados.
     [19/05/2019] Removido Bug do SubDomain Finder.
     [19/05/2019] Otimizado SubDomain Finder.
+    [19/05/2019] Detectando Redirecionamento.
 ```
