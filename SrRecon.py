@@ -9,17 +9,14 @@ import signal
 
 info_string = \
 r"""
-   ██████  ██▀███        ██▀███  ▓█████ ▄████▄  ▒█████   ███▄    █ 
- ▒██    ▒ ▓██ ▒ ██▒     ▓██ ▒ ██▒▓█   ▀▒██▀ ▀█ ▒██▒  ██▒ ██ ▀█   █ 
- ░ ▓██▄   ▓██ ░▄█ ▒     ▓██ ░▄█ ▒▒███  ▒▓█    ▄▒██░  ██▒▓██  ▀█ ██▒ 1.2 BETA
-   ▒   ██▒▒██▀▀█▄       ▒██▀▀█▄  ▒▓█  ▄▒▓▓▄ ▄██▒██   ██░▓██▒  ▐▌██▒
- ▒██████▒▒░██▓ ▒██▒     ░██▓ ▒██▒░▒████▒ ▓███▀ ░ ████▓▒░▒██░   ▓██░
- ▒ ▒▓▒ ▒ ░░ ▒▓ ░▒▓░     ░ ▒▓ ░▒▓░░░ ▒░ ░ ░▒ ▒  ░ ▒░▒░▒░ ░ ▒░   ▒ ▒ 
- ░ ░▒  ░ ░  ░▒ ░ ▒░       ░▒ ░ ▒░ ░ ░  ░ ░  ▒    ░ ▒ ▒░ ░ ░░   ░ ▒░
- ░  ░  ░    ░░   ░        ░░   ░    ░  ░       ░ ░ ░ ▒     ░   ░ ░ 
-       ░     ░             ░        ░  ░ ░         ░ ░           ░ 
-                                      ░                                                          
- Desevolvido por SrBlue.
+███████╗██████╗     ██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗
+██╔════╝██╔══██╗    ██╔══██╗██╔════╝██╔════╝██╔═══██╗████╗  ██║
+███████╗██████╔╝    ██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║ 1.3 beta 
+╚════██║██╔══██╗    ██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║
+███████║██║  ██║    ██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║
+╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝
+                                                                                               
+ Desevolvido por SrBlue || Banner by Gabriel Paiva.
  Publicada no 5ubTools
  Eficiencia de 80% e diversão de 100% 
 """
@@ -485,21 +482,24 @@ passe = ('admin/','administrator/','login.php','administration/','admin1/','admi
 'adm/index.brf','adm.brf','affiliate.brf','adm_auth.brf','memberadmin.brf','administratorlogin.brf','cpanel','cpanel.php','cpanel.html',)
 
 
-
 a = 1
 b = 1
 for hani in passe :
     try :
-    	url = requests.get(SSL+host+"/"+hani,allow_redirects=False)# 
-    	if url.status_code == 200 or not url.status_code >= 207:
-        	print("[?] Finder Admin: %s"%(url))
-        	b = b + 1
+    	url = requests.get(SSL+host+"/"+hani)# 
+    	url2 = SSL+host+"/"+hani
+    	if not url.status_code == 404:
+    		print("[?] Finder Admin: %s"%(url2))
+    	else:
+    		b = b + 1
     except:
        a = a
+
 if b == 1:
 	print("[x] Nenhuma pagina encontrada.")
 else: 
 	print("[?] Paginas encontradas: %s "%(b - 1))
+
 
 
 
@@ -1809,9 +1809,9 @@ except requests.exceptions.ConnectionError:
         debug = 0
 
 try:
-        url = requests.get(SSL+"loja."+host) # www.
-        if not url.status_code >= 207:
-                print("SUB-DOMINIO DETECTADO: loja.%s"%(host))
+        url = requests.get(SSL+"loja."+host) # www. # Requests, faz teste com o HTTPS / HTTP://  + "loja." + Host ou seja fica: 
+        if not url.status_code >= 207:                      #https://loja.facebook.com, ai se a pagina nao apresentar erro maior que 207
+                print("SUB-DOMINIO DETECTADO: loja.%s"%(host)) # avisa q eh detectado.
 
 except requests.exceptions.ConnectionError:
         debug = 0
