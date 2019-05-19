@@ -65,5 +65,8 @@
     [18/05/2019] Otimizado Admin Finder.
     [18/05/2019] Bug removido do SSL detect.
     [19/05/2019] Adicionado SubDominios Detect.
-    [19/05/2019] Removido Bug do SSL detect²
+    [19/05/2019] Removido Bug do SSL detect².
+    [19/05/2019] Adicionado mais SubDominios para serem detectados.
+    [19/05/2019] Removido Bug do SubDomain Finder.
+    [19/05/2019] Otimizado SubDomain Finder.
 ```
