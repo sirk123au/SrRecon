@@ -11,7 +11,7 @@ info_string = \
 r"""
    ██████  ██▀███        ██▀███  ▓█████ ▄████▄  ▒█████   ███▄    █ 
  ▒██    ▒ ▓██ ▒ ██▒     ▓██ ▒ ██▒▓█   ▀▒██▀ ▀█ ▒██▒  ██▒ ██ ▀█   █ 
- ░ ▓██▄   ▓██ ░▄█ ▒     ▓██ ░▄█ ▒▒███  ▒▓█    ▄▒██░  ██▒▓██  ▀█ ██▒ 1.1 BETA
+ ░ ▓██▄   ▓██ ░▄█ ▒     ▓██ ░▄█ ▒▒███  ▒▓█    ▄▒██░  ██▒▓██  ▀█ ██▒ 1.2 BETA
    ▒   ██▒▒██▀▀█▄       ▒██▀▀█▄  ▒▓█  ▄▒▓▓▄ ▄██▒██   ██░▓██▒  ▐▌██▒
  ▒██████▒▒░██▓ ▒██▒     ░██▓ ▒██▒░▒████▒ ▓███▀ ░ ████▓▒░▒██░   ▓██░
  ▒ ▒▓▒ ▒ ░░ ▒▓ ░▒▓░     ░ ▒▓ ░▒▓░░░ ▒░ ░ ░▒ ▒  ░ ▒░▒░▒░ ░ ▒░   ▒ ▒ 
@@ -24,10 +24,7 @@ r"""
  Eficiencia de 80% e diversão de 100% 
 """
 
-
 print(info_string)
-
-
 
 def IpPublico(andress): 
         
@@ -40,49 +37,49 @@ def IpPublico(andress):
         return True
         
 if len(sys.argv) < 2:
-        print("[?] Use: ipRecon.py [IP/URL]")
+        print(" [?] Use: ipRecon.py [IP/URL]")
         sys.exit()
 
 host = sys.argv[1]
 try:
         ip = socket.gethostbyname(host)
 except:
-        print("FALHA AO PEGAR HOST")
-        print("TENTE TIRAR O HTTPS/HTTP")
+        print(" [x] FALHA AO PEGAR HOST")
+        print(" [x] TENTE TIRAR O HTTPS/HTTP")
         sys.exit()
 
 
 print(" ")
 
 try:
-        print("HOST: %s"%host)
+        print(" [?] HOST: %s"%host)
 except:
-        print("HOST: ERRO")
+        print(" [x] HOST: ERRO")
 
 try:
         servidor = socket.gethostbyaddr(ip)
-        print("SERVIDOR-DNS: %s"%(servidor[0]))
+        print(" [?] SERVIDOR-DNS: %s"%(servidor[0]))
 except:
-        print("SERVIDOR-DNS: ERRO ")
+        print(" [x] SERVIDOR-DNS: ERRO ")
 
 try:
         public = IpPublico(ip)
-        print("TIPO DE SERVIDOR: PUBLICO")
+        print(" [?] TIPO DE SERVIDOR: PUBLICO")
 except:
-        print("TIPO DE SERVIDOR: PRIVADO")
+        print(" [x] TIPO DE SERVIDOR: PRIVADO")
        
 
 try:
-        print("IP: %s"%(ip))
+        print(" [?] IP: %s"%(ip))
 except:        
-        print("IP: ERRO ")
+        print(" [x] IP: ERRO ")
 
 try:
 	url = requests.get("https://" + host)
 	SSL = "https://"
-	print("HTTPS: SIM") 
+	print(" [?] HTTPS: SIM") 
 except:
-	print("HTTPS: NAO")
+	print(" [?] HTTPS: NAO")
 	SSL = "http://"
 
 
@@ -93,10 +90,10 @@ try:
 	sslsock = ssl.wrap_socket(sock)
 	cert_der = sslsock.getpeercert(True)
 	cert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_ASN1, cert_der)
-	print ("SSL CRIPTROGRAFIA: %s"%(cert.get_signature_algorithm()))
+	print (" [?] SSL CRIPTROGRAFIA: %s"%(cert.get_signature_algorithm()))
 
 except socket.error:
-	print("SSL CERTIFICADO: ERROR")
+	print(" [x] SSL CERTIFICADO: ERROR")
 
 
 
@@ -104,17 +101,17 @@ try:
 	context = ssl.create_default_context()
 	with socket.create_connection((host, 443)) as sock:
 		with context.wrap_socket(sock, server_hostname=host) as sock:
-			print("SSL VERSÃO: %s"%(sock.version()))
+			print(" [?] SSL VERSÃO: %s"%(sock.version()))
 except:
-	print("SSL VERSAO: ERROR")
+	print(" [x] SSL VERSAO: ERROR")
 
 headers = requests.get(SSL+host).headers
 
-print("Linguagem: %s "%(headers["content-type"]))
+print(" [?] Linguagem: %s "%(headers["content-type"]))
 try:
-	print("Servidor: %s "%(headers["server"]))
+	print(" [?] Servidor: %s "%(headers["server"]))
 except:
-	print("Servidor: ERROR")
+	print(" [x] Servidor: ERROR")
 
 # CMS:
 # 1 = Wordpress
@@ -139,129 +136,130 @@ CmsDetectar[6] = 0
 # Como adicionar um diretorio?
 
 # url = requests.get(SSL+host+"/diretorio/") #/diretorio/ é pra botar o diretorio que o arquivo do CMS esta. 
-# if url.status_code == 200:  # Se esta com pagina nao esta erro
+# if url.status_code == 200 or not url.status_code >= 305: # Se esta com pagina nao esta erro
 #       CmsDetectar[1] = 1                   # CmsDetectar[CMS] = Sim ou Nao ( 1 = sim | 2 = nao)
 
 try: #tentando a conexao com o servidor.
         url = requests.get(SSL+host+"/wp-content/") #Cms WordPress .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[1] = 1
                 
 
         url = requests.get(SSL+host+"/wp-admin/") #Cms WordPress .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[1] = 1
                 
 
         url = requests.get(SSL+host+"/wp-login.php") #Cms WordPress .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[1] = 1
                 
 
         url = requests.get(SSL+host+"/wp-includes") #Cms WordPress .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[1] = 1
                 
 
         url = requests.get(SSL+host+"/wp-config.php") #Cms WordPress .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[1] = 1
+                print("ALERT: WP-CONFIG.PHP DETECTADO!!!")
                 
 
         ############
 
         url = requests.get(SSL+host+"/joomla/") #Cms Joomla .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[2] = 1
                 
                                 
         url = requests.get(SSL+host+"/language/") #Cms Joomla .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[2] = 1
                 
                                 
         url = requests.get(SSL+host+"/Template_preview.png/") #Cms Joomla .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[2] = 1
                 
                 
         url = requests.get(SSL+host+"/template_thumbnail.png/") #Cms Joomla .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[2] = 1
                 
                         
         url = requests.get(SSL+host+"/error.php/") #Cms Joomla .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[2] = 1
                 
         ############
         ############
         url = requests.get(SSL+host+"/administrator/backups/") #Cms Mambo .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[3] = 1
                 
                 
         url = requests.get(SSL+host+"/administrator/") #Cms Mambo .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[3] = 1
                 
                 
                                 
         url = requests.get(SSL+host+"/mambots/") #Cms Mambo .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[3] = 1
                 
         ############
         ############
                                         
         url = requests.get(SSL+host+"/sites/all/") #Cms Drupal .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[4] = 1
                 
                                                 
         url = requests.get(SSL+host+"/sites/all/libraries/") #Cms Drupal .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[4] = 1
                 
                                                         
         url = requests.get(SSL+host+"/sites/all/themes/") #Cms Drupal .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[4] = 1
                 
                                                         
         url = requests.get(SSL+host+"/sites/all/modules/custom/") #Cms Drupal .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[4] = 1
                 
                                                         
         url = requests.get(SSL+host+"/site/all/modules/contrib") #Cms Drupal .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[4] = 1
                 
         ############
         ############
         url = requests.get(SSL+host+"/app/code/") #Cms Magento .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[5] = 1
                 
 
         url = requests.get(SSL+host+"/app/design/") #Cms Magento .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[5] = 1
                 
 
         url = requests.get(SSL+host+"/app/etc/") #Cms Magento .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[5] = 1
                 
 
         url = requests.get(SSL+host+"/downloader/") #Cms Magento .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[5] = 1
                 
 
         url = requests.get(SSL+host+"/app/") #Cms Magento .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[5] = 1
                 
         ############
@@ -269,34 +267,34 @@ try: #tentando a conexao com o servidor.
         ############
 
         url = requests.get(SSL+host+"/jekyll/") #Cms Jekyll .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[6] = 1
                 
 
         url = requests.get(SSL+host+"/_config.yml") #Cms Jekyll .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[6] = 1
 
         url = requests.get(SSL+host+"/.jekyll-metadata") #Cms Jekyll .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[6] = 1
 
         url = requests.get(SSL+host+"/_layouts") #Cms Jekyll .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[6] = 1
 
         url = requests.get(SSL+host+"/404.md") #Cms Jekyll .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305:
                 CmsDetectar[6] = 1
 
         url = requests.get(SSL+host+"/about.md") #Cms Jekyll .
-        if url.status_code == 200: 
+        if url.status_code == 200 or not url.status_code >= 305: 
                 CmsDetectar[6] = 1
                 
                 
                 
 except: #Se falhar a conexao com o servidor.
-        print("FALHA AO CONECTAR A SERVIDOR HTTP/HTPPS")
+        print(" [x] FALHA AO CONECTAR A SERVIDOR HTTP/HTPPS")
         
         
 
@@ -326,7 +324,7 @@ elif CmsDetectar[6] == 1: # or CMS 6 For = 1
         CMS = "Jekyll"
         
         
-print("CMS: %s "%(CMS))
+print(" [?] CMS: %s "%(CMS))
 
 
 # 1 = Wordpress
@@ -337,7 +335,7 @@ print("CMS: %s "%(CMS))
 # 6 = Jekyll
 
 print(" ")
-print("Listando as Portas: ")
+print("	Listando as Portas: ")
 
 
 
@@ -350,21 +348,22 @@ for i in portas:
     try:
         response = client.connect_ex((ip, i))
         if response == 0:
-                print("PORTA: %s ABERTA"%(str(i)))
+                print(" [?] PORTA: %s ABERTA"%(str(i)))
                 portas_abertas = portas_abertas + 1
     except:
         portasdebug = 0
-print("Portas abertas: %s"%(portas_abertas))
-
+print(" [?] Portas abertas: %s"%(portas_abertas))
 print(" ")
-print("Localização da HOST: ")
+
+print(" Localização da HOST: ")
 url = "https://api.hackertarget.com/geoip/?q=" + host 
 request = requests.get(url)
 localizar = request.text
-print(localizar)
+print(" %s"%(localizar))
+
 
 print(" ")
-print("Listando paginas admins:")
+print(" Listando paginas admins:")
 
 passe = ('admin/','administrator/','login.php','administration/','admin1/','admin2/','admin3/','admin4/','admin5/','moderator/','webadmin/','adminarea/','bb-admin/','adminLogin/','admin_area/','panel-administracion/','instadmin/',
 'memberadmin/','administratorlogin/','adm/','account.asp','admin/account.asp','admin/index.asp','admin/login.asp','admin/admin.asp','/login.aspx',
@@ -494,9 +493,1343 @@ for hani in passe :
     try :
     	a = SSL+host+"/"+hani
     	url = requests.get(SSL+host+"/"+hani) 
-    	if url.status_code == 200:
-        	print("Finder Admin: %s"%(a))
+    	if url.status_code == 200 or not url.status_code >= 305:
+        	print(" [?] Finder Admin: %s"%(a))
         	b = b + 1
     except:
        a = a
-print("Paginas encontradas: %s "%(b - 1))
+if b == 1:
+	print(" Nenhuma pagina encontrada.")
+else: 
+	print(" [?] Paginas encontradas: %s "%(b - 1))
+
+
+
+
+# try: tentar
+# url = requests.get(SSL+"domain"+host) #"domain" é pra botar o diretorio que o subdominio esta 
+# if not url.status_code == 404:       # Se apagina nao esta com erro
+#       print("Subdominio detectado: ssl+dominio+host") # printa o subdominio
+# except: se der errado a tentativa.
+
+print(" ")
+print(" Listando SubDominios:")
+host = host.replace("www.","") # formata a palavra sem www
+debug = 1
+
+try:
+        url = requests.get(SSL+"ftp."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: ftp.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"mail."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: mail.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"nasa."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: nasa.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"whm."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: whm.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www2."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www2.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"new."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: new.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"webdisk."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: webdisk.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"localhost."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: localhost.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"email."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: email.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"email2."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: email2.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"ns1."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: ns1.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"ns2."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: ns2.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"portal."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: portal.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"blog."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: blog.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns2."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns2.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns3."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns3.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns4."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns4.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns5."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns5.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns6."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns6.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns7."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns7.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns8."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns8."%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns9."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns9.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns10."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns10.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dns11."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dns11.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www3."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www3.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"host."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: host.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"host2."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: host2.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"stats."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: stats.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"host3."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: host3.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"video."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: video.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"wiki."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: wiki.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"mail1."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: mail1.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"mx1."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: mx1.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"forum."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: forum.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"start."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: start.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"media."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: media.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"sql."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: sql.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"api."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: api.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"list."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: list.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"backup."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: backup.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"images."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: images.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"img."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: img.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"staging."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: staging.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"sip."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: sip.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"search."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: search.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"ads."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: ads.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"remote."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: remote.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"ipv4."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: ipv4.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"store."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: store.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"wap."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: wap.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"if."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: if.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"svn."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: svn.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"my."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: my.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"mx2."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: mx2.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"chat."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: chat.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"forums."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: forums.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"exchange."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: exchange.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"mail123."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: mail123.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dev."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dev.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"apps."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: apps.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"mysql."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: mysql.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"proxy."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: proxy.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"contents."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: contents.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"visa."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: visa.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cc."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cc.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"pagar."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: pagar.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"user."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: user.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"usuario."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: usuario.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"client."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: client.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"painel."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: painel.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"panel."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: panel.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"shell."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: shell.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"date."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: date.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"workspace."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: workspace.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"space."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: space.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"work."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: work.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"tools."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: tools.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"intern."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: intern.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"default."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: default.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"bot."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: bot.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"crew."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: crew.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"css."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: css.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"admin."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: admin.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"wlan."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: wlan.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dev."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dev.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"fuck."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: fuck.%s"%(host))
+                
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"teste."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: teste.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"test."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: test.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"txt."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: txt.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"eua."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: eua.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"br."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: br.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"demo."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: demo.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"moodle."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: moodle.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"games."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: games.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"gateway."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: gateway.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"view."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: view.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"bost2."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: host2.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"config."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: config.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"server1."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: server1.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"jobs."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: jobs.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"kill."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: kill.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"buy."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: buy.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"suport."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: suport.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+
+try:
+        url = requests.get(SSL+"help."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: help.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"preview."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: preview.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"123ftp."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: 123ftp.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+try:
+        url = requests.get(SSL+"service."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: service.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"vga."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: vga.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"buy."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: buy.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"fodation."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: fodation.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"hack."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: hack.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"me."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: me.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel1."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel1.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel2."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel2.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+
+try:
+        url = requests.get(SSL+"cpanel3."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel3.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel4."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel4.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel5."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel5.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel6."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel6.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel7."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel7.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel8."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel8.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel9."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel9.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel10."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel10.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel11."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel11.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel12."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel12.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel13."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel13.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel14."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel14.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel16."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel16.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel17."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel17.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel18."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel18.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel19."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel19.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"cpanel20."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: cpanel20.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"new2."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: new2.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"master."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: master.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"sub."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: sub.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"contruct."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: contruct.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"git."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: git.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"bug."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: bug.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www3."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www3.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www4."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www4.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www5."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www5.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www6."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www6.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www7."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www7.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www8."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www8.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www9."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www9.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www10."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www10.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www11."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www11.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www12."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www12.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www13."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www13.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www14."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www14.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"www15."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: www15.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"dowloand."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: dowloand.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"down."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: down.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"baixar."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: baixar.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"genero."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: genero.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"direct."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: direct.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"marker."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: marker.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"maker."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: maker.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"name."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: name.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"loja."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: loja.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"public."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: public.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
+
+try:
+        url = requests.get(SSL+"correio."+host) # www.
+        if not url.status_code == 404:
+                print(" [?] SUB-DOMINIO DETECTADO: correio.%s"%(host))
+
+except requests.exceptions.ConnectionError:
+        debug = 0
