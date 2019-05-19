@@ -9,7 +9,7 @@
 - SrRecon é uma ferramenta para efetuar um reconhecimento basico de um -site, analizando as portas, pagina admin, e subdominios do site, SrRecon vem com um podereso detector, que pode ser custumizado por qual quer programador.
 
 # AVISO
-   - Se achar algun erro ou poblema [Click aqui](https://github.com/Srblu3/SrRecon/issues"Click aqui") é crie um ISSUES!
+   - Se achar algun erro ou poblema [Click aqui](https://github.com/Srblu3/SrRecon/issues "Click aqui") e crie um ISSUES!
    - Qual quer pobleminha crie um ISSUE. com o link acima.
 
 # Imagem
