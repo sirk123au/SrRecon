@@ -1,4 +1,4 @@
-#SrRecon
+# SrRecon
 
 ![](https://img.shields.io/badge/SrRecon-1.2-blue.svg)
 ![](https://img.shields.io/pypi/pyversions/requests.svg?label=python)
@@ -8,12 +8,16 @@
 
 - SrRecon é uma ferramenta para efetuar um reconhecimento basico de um -site, analizando as portas, pagina admin, e subdominios do site, SrRecon vem com um podereso detector, que pode ser custumizado por qual quer programador.
 
-#Imagem
+# AVISO
+   - Se achar algun erro ou poblema [Click aqui](https://github.com/Srblu3/SrRecon/issues"Click aqui") é crie um ISSUES!
+   - Qual quer pobleminha crie um ISSUE. com o link acima.
+
+# Imagem
 
 ![SrRecon Funcionando](https://i.imgur.com/zNvNZOU.jpg "SrRecon Funcionando")
 
 
-#Características
+# Características
 
 - Pega servidor primario DNS
 - Verifica tipo de servidor ( privado ou aberto )
@@ -30,7 +34,7 @@
 
 
 
-#Instalação
+# Instalação
 
 - Baixe diretamente do github com:
 - git clone https://github.com/Srblu3/SrRecon.git
@@ -38,7 +42,7 @@
 
 
 
-#Uso
+# Uso
 
 |         OS       | LINHA DE COMANDO                 |
 | ---------------- | -------------------------------- |
@@ -48,14 +52,14 @@
 
 
 
-#Requerimentos
+# Requerimentos
 
 - Bibliotecas [Socket](ttps://pypi.org/project/sockets/ "Socket"), Sys, OS, [Requests](https://pypi.org/project/requests/ "Requests"), [OpenSSL](https://pypi.org/project/pyOpenSSL/ "OpenSSL"), [SSL](https://pypi.org/project/ssl/ "SSL"), Signal.
 - Python versão 2.x | 3.x.
 
 
 
-#ChatLogs
+# ChatLogs
 
    ```bash
     [18/05/2019] Correção do bug CMS.
