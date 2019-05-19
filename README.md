@@ -1,7 +1,7 @@
 #SrRecon
 
-
-![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/pandao/editor.md.svg) ![](https://img.shields.io/github/followers/espadrine.svg?label=Follow) ![](https://img.shields.io/pypi/pyversions/requests.svg?label=python)
+![](https://img.shields.io/badge/SrRecon-1.1-blue.svg)
+![](https://img.shields.io/pypi/pyversions/requests.svg?label=python)
 
 - SrRecon é uma ferramenta para efetuar um reconhecimento basico de um -site, analizando as portas, pagina admin, e subdominios do site, SrRecon vem com um podereço detector, que pode ser custumizado por qual quer programador.
 
