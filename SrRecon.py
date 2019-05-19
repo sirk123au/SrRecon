@@ -1831,4 +1831,11 @@ try:
                 print("SUB-DOMINIO DETECTADO: correio.%s"%(host))
 
 except requests.exceptions.ConnectionError:
+	
+try:
+        url = requests.get(SSL+"correio01."+host) # www.
+        if not url.status_code == 404:
+                print("SUB-DOMINIO DETECTADO: correio.%s"%(host))
+
+except requests.exceptions.ConnectionError:
         debug = 0
