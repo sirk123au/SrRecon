@@ -612,8 +612,9 @@ for hani in domain :
     	url2 = SSL+hani+"."+host
     	if not url.status_code == 404:
     		print("[?] Domain finder: %s"%(url2))
-    	else:
     		achar_domain = achar_domain + 1
+    	else:
+    		achar_domain = achar_domain
     except:
        a = a
 
@@ -623,5 +624,7 @@ else:
 	print("[?] SubDominios encontrados: %s "%(achar_domain))
 
 
-print(" ")
-print("SubDomain detector:")
+
+
+
+
