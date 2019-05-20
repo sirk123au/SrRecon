@@ -5,7 +5,6 @@ import os
 import requests
 import OpenSSL
 import ssl
-import signal
 
 info_string = \
 r"""
@@ -622,9 +621,3 @@ if achar_domain == 0:
 	print("[x] Nenhum SubDominio encontrada.")
 else: 
 	print("[?] SubDominios encontrados: %s "%(achar_domain))
-
-
-
-
-
-
