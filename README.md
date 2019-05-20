@@ -1,4 +1,4 @@
-# SrReco
+# SrRecon
 
 ![](https://img.shields.io/badge/SrRecon-1.3B-blue.svg)
 ![](https://img.shields.io/pypi/pyversions/requests.svg?label=python)
