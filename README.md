@@ -28,7 +28,6 @@
 - Tipo de servidor que é utilizado pela host
 - Detecta CMS
 - Detector de Portas
-- Localiza a Host
 - Admin finder
 - SubDominio finder
 
@@ -82,5 +81,6 @@
     [20/05/2019] Adicionado nova lista para Admin Finder.
     [20/05/2019] Passando algumas funções para "def".
     [20/05/2019] Retirado biblioteca "Signal" devido não estar utilizando.
+    [20/05/2019] Retirado a localização da Host. ( irei re-adicionar no futuro ).
     
 ```
