@@ -1,12 +1,12 @@
 # SrRecon
 
-![](https://img.shields.io/badge/SrRecon-1.3-blue.svg)
+![](https://img.shields.io/badge/SrRecon-1.3B-blue.svg)
 ![](https://img.shields.io/pypi/pyversions/requests.svg?label=python)
 ![](https://img.shields.io/badge/update-19/05/2019-blue.svg)
 ![](https://img.shields.io/badge/last_update-19/05/2019-blue.svg)
 ![](https://img.shields.io/conda/pn/conda-forge/python.svg?color=blue&label=Plataformas&logo=blue&logoColor=blue)
 
-- SrRecon é uma ferramenta para efetuar um reconhecimento basico de um -site, analizando as portas, pagina admin, e subdominios do site, SrRecon vem com um podereso detector, que pode ser custumizado por qual quer programador.
+- SrRecon é uma ferramenta de reconhecimento e scan de Sites. Esse scan analiza e mostra para o utilizador as portas abertas, CMS, Pagina Admin, Localização do servidor, tipo de servidor, qual linguagem que o servidor uitliza, e os Domínios que o servidor possui. Esse scan é poderoso que pode ser modificado por qual quer pessoa devido ter uma syntax 100% legível e Indentada.
 
 # AVISO
    - Se achar algun erro ou poblema [Click aqui](https://github.com/Srblu3/SrRecon/issues "Click aqui") e crie um ISSUES!
@@ -14,7 +14,7 @@
 
 # Imagem
 
-![SrRecon Funcionando](https://i.imgur.com/zNvNZOU.jpg "SrRecon Funcionando")
+![SrRecon Funcionando](https://imgur.com/a/fkgZowK "SrRecon Funcionando")
 
 
 # Características
