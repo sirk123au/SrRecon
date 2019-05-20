@@ -54,7 +54,7 @@
 
 # Requerimentos
 
-- Bibliotecas [Socket](ttps://pypi.org/project/sockets/ "Socket"), Sys, OS, [Requests](https://pypi.org/project/requests/ "Requests"), [OpenSSL](https://pypi.org/project/pyOpenSSL/ "OpenSSL"), [SSL](https://pypi.org/project/ssl/ "SSL"), Signal.
+- Bibliotecas [Socket](ttps://pypi.org/project/sockets/ "Socket"), Sys, OS, [Requests](https://pypi.org/project/requests/ "Requests"), [OpenSSL](https://pypi.org/project/pyOpenSSL/ "OpenSSL"), [SSL](https://pypi.org/project/ssl/ "SSL").
 - Python versão 2.x | 3.x.
 
 
@@ -81,5 +81,6 @@
     [20/05/2019] Adicionado nova lista para SubDomain Finder.
     [20/05/2019] Adicionado nova lista para Admin Finder.
     [20/05/2019] Passando algumas funções para "def".
+    [20/05/2019] Retirado biblioteca "Signal" devido não estar utilizando.
     
 ```
