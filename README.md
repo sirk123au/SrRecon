@@ -77,4 +77,5 @@
     [19/05/2019] Detectando Redirecionamento.
     [19/05/2019] Update 1.3 BETA.
     [19/05/2019] Adicionado novo banner, criado por Gabriel Paiva.
+    [19/05/2019] Otimizado SubDomain Finder²
 ```
