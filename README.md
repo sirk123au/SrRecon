@@ -14,7 +14,7 @@
 
 # Imagem
 
-![SrRecon Funcionando](https://i.imgur.com/Lc9gnHx.jpg "SrRecon Funcionando")
+![SrRecon Funcionando](https://i.imgur.com/Bz2ClKH.jpg "SrRecon Funcionando")
 
 
 # Características
