@@ -1,4 +1,4 @@
-# SrRecon
+# SrRecon by SrBlue
 
 ![](https://img.shields.io/badge/SrRecon-1.3B-blue.svg)
 ![](https://img.shields.io/badge/last_update-20/05/2019-blue.svg)
