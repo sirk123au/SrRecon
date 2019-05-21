@@ -81,5 +81,6 @@
     [20/05/2019] Passando algumas funções para "def".
     [20/05/2019] Retirado biblioteca "Signal" devido não estar utilizando.
     [20/05/2019] Retirado a localização da Host. ( irei re-adicionar no futuro ).
+    [21/05/2019] Otimizado CMS detect.
     
 ```
