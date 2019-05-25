@@ -23,7 +23,7 @@ r"""
         \_-=> DEVIDO TER UMA LONGA BIBLIOTECA!                                                                 
  Desevolvido por SrBlue.
  Publicada no 5ubTools
- Eficiencia de 80% e diversão de 100% 
+ Eficiencia de 81% e diversão de 100% 
 """
 
 print(info_string)
