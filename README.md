@@ -1,6 +1,6 @@
 # SrRecon by SrBlue
 
-![](https://img.shields.io/badge/SrRecon-1.3B-blue.svg )
+![](https://img.shields.io/badge/SrRecon-1.5B-blue.svg )
 ![](https://img.shields.io/badge/last_update-20/05/2019-blue.svg )
 ![](https://img.shields.io/pypi/pyversions/requests.svg?label=python )
 ![](https://img.shields.io/conda/pn/conda-forge/python.svg?color=blue&label=platform&logo=Srblue&logoColor=blue )
