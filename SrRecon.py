@@ -39,7 +39,7 @@ def IpPublico(andress):
 
        
 if len(sys.argv) < 2:
-        print("[?] Use: ipRecon.py [IP/URL]")
+        print("[?] Use: SrRecon.py [IP/URL]")
         sys.exit()
 
 host = sys.argv[1]
