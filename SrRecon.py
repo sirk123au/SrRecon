@@ -1,4 +1,4 @@
-#!-*- conding: utf8 -*-
+
 import socket
 import sys
 import os
@@ -13,7 +13,7 @@ info_string = \
 r"""
 ███████╗██████╗     ██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗
 ██╔════╝██╔══██╗    ██╔══██╗██╔════╝██╔════╝██╔═══██╗████╗  ██║
-███████╗██████╔╝    ██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║ 1.5 beta 
+███████╗██████╔╝    ██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║ 1.3 beta 
 ╚════██║██╔══██╗    ██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║
 ███████║██║  ██║    ██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║
 ╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝
@@ -328,14 +328,17 @@ for i in portas:
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.settimeout(1.5)
     try:
-       response = client.connect_ex((ip, i))
-       if response == 0:
+        response = client.connect_ex((ip, i))
+        if response == 0:
             print("[?] PORTA: %s ABERTA"%(str(i)))
             portas_abertas = portas_abertas + 1
-       except:
-            portasdebug = 0
-print("[?] Portas abertas: %s"%(portas_abertas))
-
+    except:
+        portasdebug = 0
+if portas_abertas >= 1:
+    print("[?] Portas abertas: %s"%(portas_abertas))
+else:
+    print("[x] Nenhuma porta esta aberta.")
+    
 print(" ")
 print("Listando paginas admins:")
 a = 1
